@@ -1,0 +1,93 @@
+<template>
+  <div class="home">
+    <h1 class="title">TWIGE</h1>
+    <p class="subtitle">Apprenez la programmation étape par étape</p>
+
+    <div class="lessons-container">
+      <div
+        v-for="lesson in lessons"
+        :key="lesson.id"
+        class="lesson-card"
+        @click="$router.push(`/lesson/${lesson.id}`)"
+      >
+        <h2>{{ lesson.title }}</h2>
+        <p>{{ lesson.chapters.length }} chapitres</p>
+        <button>Commencer</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { lessons } from '../data/lessons.js'
+</script>
+
+<style scoped>
+.home {
+  min-height: 100vh;
+  padding: 40px;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #c9d6ff, #e2e2e2);
+}
+
+.title {
+  text-align: center;
+  font-size: 48px;
+  color: #512da8;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.lessons-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.lesson-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.lesson-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
+}
+
+.lesson-card h2 {
+  color: #512da8;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.lesson-card p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.lesson-card button {
+  background: linear-gradient(90deg, #512da8, #5c6bc0);
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.lesson-card button:hover {
+  opacity: 0.9;
+}
+</style>
