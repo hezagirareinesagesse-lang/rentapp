@@ -1,0 +1,170 @@
+<template>
+  <div class="lesson-page">
+    <h1>{{ lesson.title }}</h1>
+
+    <div
+      v-for="chapter in lesson.chapters" 
+      :key="chapter.id" 
+      class="chapter"
+    >
+      <div 
+        class="chapter-title"
+        @click="toggleChapter(chapter.id)"
+      >
+        {{ chapter.title }}
+      </div>
+
+      <div  
+        v-if="activeChapter === chapter.id" 
+        class="chapter-content"
+      >
+        {{ chapter.content }}
+      </div>
+
+    </div> <!-- ✅ fermeture du v-for -->
+
+    <!-- ✅ boutons déplacés en dehors du v-for -->
+    <div class="buttons">
+      <button @click="$router.back()">⬅ Retour</button>
+
+      <button 
+        class="quiz-btn" 
+        @click="$router.push(`/lesson/${lesson.id}/quiz`)"
+      >
+        Quiz
+      </button>
+    </div>
+
+  </div>
+</template>
+<script setup>
+import { lessons } from '../data/lessons.js'
+import { useRoute } from 'vue-router'
+import { ref } from 'vue'
+
+const route = useRoute()
+const lessonId = Number(route.params.id)
+
+const lesson = lessons.find(l => l.id === lessonId)
+
+const activeChapter = ref(null)
+
+const toggleChapter = (id) => {
+  activeChapter.value = activeChapter.value === id ? null : id
+}
+</script>
+
+<style scoped>
+
+.lesson-page {
+  min-height: 100vh;
+  padding: 50px 20px;
+  background: linear-gradient(135deg, #c9d6ff, #e2e2e2);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.lesson-page > div {
+  width: 100%;
+}
+
+.lesson-page h1 {
+  text-align: center;
+  font-size: 40px;
+  color: #512da8;
+  margin-bottom: 40px;
+}
+
+/* Container central */
+.lesson-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chapter {
+  width: 100%;
+  max-width: 750px;
+  margin-bottom: 20px;
+}
+
+/* Titre chapitre premium */
+.chapter-title {
+  background: linear-gradient(90deg, #512da8, #5c6bc0);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+  box-shadow: 0 8px 20px rgba(81, 45, 168, 0.2);
+}
+
+.chapter-title:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(81, 45, 168, 0.3);
+}
+
+/* Contenu glass effect */
+.chapter-content {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 10px;
+  line-height: 1.6;
+  color: #333;
+  animation: fadeDown 0.3s ease;
+}
+
+/* Boutons */
+.buttons {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+button {
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+/* Bouton retour */
+button:first-child {
+  background: #eee;
+  color: #512da8;
+}
+
+button:first-child:hover {
+  transform: translateY(-3px);
+}
+
+/* Bouton quiz premium */
+.quiz-btn {
+  background: linear-gradient(90deg, #512da8, #5c6bc0);
+  color: white;
+}
+
+.quiz-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(81, 45, 168, 0.3);
+}
+
+/* Animation */
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
