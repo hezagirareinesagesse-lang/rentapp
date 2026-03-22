@@ -1,0 +1,112 @@
+<template>
+  <div class="home">
+    <div class="overlay"></div>
+
+    <div class="content">
+      <h1 class="logo">TWIGE</h1>
+
+      <p class="tagline">
+        Apprendre aujourd’hui. Construire le Burundi de demain.
+      </p>
+
+      <p class="mini">
+        Une plateforme éducative pour inspirer la jeunesse 🇧🇮
+      </p>
+
+      <button class="start-btn" @click="$router.push('/login')">
+        Commencer l’aventure
+      </button>
+    </div>
+  </div>
+</template>
+
+<script setup>
+</script>
+
+<style scoped>
+.home {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #512da8, #5c6bc0);
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effet lumière douce */
+.overlay {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  top: -150px;
+  right: -150px;
+  animation: float 6s ease-in-out infinite;
+}
+
+.content {
+  text-align: center;
+  z-index: 2;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+/* Logo avec effet glow */
+.logo {
+  font-size: 75px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(255,255,255,0.4);
+}
+
+.tagline {
+  font-size: 20px;
+  margin-bottom: 15px;
+  opacity: 0.95;
+}
+
+.mini {
+  font-size: 14px;
+  margin-bottom: 40px;
+  opacity: 0.8;
+}
+
+/* Bouton premium */
+.start-btn {
+  padding: 14px 40px;
+  border-radius: 50px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  background: white;
+  color: #512da8;
+  transition: 0.3s ease;
+}
+
+.start-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(20px); }
+  100% { transform: translateY(0px); }
+}
+</style>
